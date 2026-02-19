@@ -1,42 +1,34 @@
 /** Programa simulador de corrida com Node.js */
 
-// config inicial do ambiente (variáveis de teste)
-const clima = "ensolarado"; // Opções: "ensolarado", "chuvoso", "tempestade"
-const pneu = "macio";       // Opções: "macio", "duro"
-const posicao = 2;          // Opções: 1 a 10
+const prompt = require("prompt-sync")();
 
-console.log("--- Relatório da equipe de estratégia ---");
+// --- Configurações Iniciais ---
+const clima = "chuvoso"; 
+const pneu = "macio";
+let posicaoKM = 0;       // Onde o carro está na pista
+const meta = 50;         // Tamanho da pista
+let turnos = 0;
 
-// Regras de lógica
-if (clima === "tempestade" || (clima === "chuvoso" && posicao > 8)){
-    console.log("⚠️ ENTRAR NO BOX IMEDIATAMENTE! Condições perigosas.");
-}else if (clima === "chuvoso"){
-    console.log("Cuidado! Reduza a velocidade nas curvas.");
-}else if (clima === "ensolarado" && pneu === "macio"){
-    console.log("DESEMPENHO MÁXIMO! Tente ultrapassagem");
-}else if (clima === "ensolarado" && pneu === "duro"){
-    console.log("Foco em constância. Aguarde o pit stop...");
-}else{
-    console.log("Condições estáveis, Siga o plano de corrida.");
+console.log(`\n🏁 Dada a largada! Clima: ${clima} | Pneu: ${pneu}\n`);
+
+// --- A ARENA (Loop de Repetição) ---
+while (posicaoKM < meta) {
+    turnos++;
+    let avançoTurno = Math.floor(Math.random() * 10) + 1; // Sorteio base
+
+    // --- AQUI ENTRA SUA LÓGICA ATUAL (Seus itens da mochila) ---
+    if (clima === "chuvoso") {
+        console.log("🌧️ Pista escorregadia! Reduzindo avanço...");
+        avançoTurno -= 2; // Debuff de chuva
+    } else if (clima === "ensolarado" && pneu === "macio") {
+        console.log("🔥 DESEMPENHO MÁXIMO!");
+        avançoTurno += 3; // Buff de performance
+    }
+
+    posicaoKM += avançoTurno; // Acumulador
+    console.log(`Turno ${turnos}: O carro avançou para ${posicaoKM}m`);
 }
 
-// O Pódio (Uso do Switch Case)
-console.log("\n--- Status do piloto ---");
-
-switch (posicao){
-    case 1:
-        console.log("Posição atual: 1º lugar (Ouro) 🏆");
-        break;
-    case 2:
-        console.log("Posição atual: 2º lugar (Prata) 🥈");
-        break;
-    case 3:
-        console.log("Posição atual: 3º lugar (Bronze) 🥉");
-        break;
-    default:
-        console.log(`Posição atual: ${posicao}º lugar. Fora do pódio.`);
-}
-
-console.log("\n--- Resumo Final ---");
-const resumo = `O piloto enfrentou um clima de ${clima} com pneus ${pneu} e terminou na ${posicao}ª posição.`;
-console.log(resumo);
+// --- O PÓDIO (Seu Switch adaptado) ---
+console.log("\n--- FIM DA CORRIDA ---");
+// Aqui você usaria sua lógica de pódio baseada no resultado...
