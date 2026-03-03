@@ -83,3 +83,41 @@ Voltando ao código (simulador de corrida):
 > Note que no sistema de pódio, o código ficou muito mais legível com `switch`. Se usássemos `if (posicao === 1) else if (posicao === 2)...`, o código ficaria repetitivo. O `switch` limpa o ruído visual.
 
 ---
+
+### Nivel II do simulador:
+
+---
+
+### 🎒 1. O Inventário (Configurações Iniciais)
+
+Antes da largada, definimos as "regras do mundo":
+
+* **`clima` e `pneu`:** São as condições que vão dar bônus (buffs) ou penalidades (debuffs).
+* **`posicaoKM` (Acumulador):** É a sua barra de progresso. Ela começa em `0` e vai subindo.
+* **`meta`:** É a linha de chegada. O objetivo é atingir `50`.
+* **`turnos` (Contador):** Conta quantas vezes o carro "acelerou" até chegar ao fim.
+
+### 🔄 2. A Arena (O Loop `while`)
+
+Aqui é onde a mágica acontece. O `while (posicaoKM < meta)` diz o seguinte:
+
+> "Enquanto o carro não chegar no quilômetro 50, não pare de rodar este código!"
+
+Dentro dele, temos:
+
+* **O Dado de Movimento (`avançoTurno`):** A cada turno, sorteamos um valor de 1 a 10.
+* **A Lógica de Estratégia (Seus `if/else`):** O código olha para o clima. Se estiver chuvoso, ele subtrai 2 do seu avanço (você anda mais devagar). Se estiver sol e pneu macio, ele soma 3 (você voa na pista!).
+* **A Atualização:** O valor final do avanço é somado à sua `posicaoKM`.
+
+### 🏁 3. O Veredito (Pós-Loop)
+
+Quando a `posicaoKM` finalmente atinge ou passa de 50, o loop "quebra" (para de rodar) e o programa segue para as linhas finais, onde exibimos o resumo da corrida e quem venceu.
+
+---
+
+### 💡 Por que isso é melhor que o código antigo?
+
+No código anterior, a gente apenas dizia: *"Se o clima for tal, a posição é X"*. Era uma foto parada.
+**Agora é um filme:** O carro realmente "anda" trecho por trecho, e o resultado final depende da sorte (nos dados) e da sua estratégia (nos `if/else`).
+
+---
